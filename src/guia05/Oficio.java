@@ -1,5 +1,11 @@
 package guia05;
 
-public enum Oficio {
+public class Oficio {
+	String nombre;
+
+	public Oficio(String nombre) {
+		super();
+		this.nombre = nombre;
+	}
 
 }
