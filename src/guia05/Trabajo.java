@@ -2,7 +2,6 @@ package guia05;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.time.LocalDate;
 
 public class Trabajo implements Contratable{
 	private Instant inicioTrabajo;
@@ -11,10 +10,10 @@ public class Trabajo implements Contratable{
 	private Servicio servicio;
 	
 	
-	public Trabajo(Instant inicioTrabajo, Instant finTrabajo, boolean urgente, Trabajador trabajador, Servicio servicio) {
+	public Trabajo(Instant inicioTrabajo, boolean urgente, Trabajador trabajador, Servicio servicio) {
 		super();
 		this.inicioTrabajo=inicioTrabajo;
-		this.finTrabajo = finTrabajo;
+		this.finTrabajo = null;					//Al crear un trabajo, este no tiene fecha de finalizacion.
 		this.trabajador = trabajador;
 		this.servicio = servicio;
 	}
@@ -22,63 +21,39 @@ public class Trabajo implements Contratable{
 	public Instant getInicioTrabajo() {
 		return inicioTrabajo;
 	}
-	
-	public void setInicioTrabajo(Instant inicioTrabajo) {
-		this.inicioTrabajo = inicioTrabajo;
-	}
-	
-	public Instant getFinTrabajo() {
-		return finTrabajo;
-	}
-
-
-
-	public void setFinTrabajo(Instant finTrabajo) {
-		this.finTrabajo = finTrabajo;
-	}
-
 
 	public Trabajador getTrabajador() {
 		return trabajador;
 	}
 
-
-
-	public void setTrabajador(Trabajador trabajador) {
-		this.trabajador = trabajador;
-	}
-
-
-
 	public Servicio getServicio() {
 		return servicio;
 	}
-
-
-
-	public void setServicio(Servicio servicio) {
-		this.servicio = servicio;
+	
+	public void definirFinTrabajo(Instant finTrabajo) {
+		this.finTrabajo = finTrabajo;
 	}
 
-
-
+	//Segun mi interpretacion del enunciado, el trabajo comienza y termina en el mismo dia,
+	//por lo tanto el calculo del costo se realiza calculando las horas trabajadas.
+	
 	@Override
 	public double precio() {
 		double valor;
 		if (this.finalizado()) {
-			valor=((Duration.between(inicioTrabajo, finTrabajo).toHours())*this.trabajador.getCosto_hora());
+			valor=((Duration.between(inicioTrabajo, finTrabajo).toHours())*this.trabajador.getCosto_hora());		//Calcula el costo desde el inicio hasta el fin del trabajo.
 			return valor;
 		}else {
-		return (Duration.between(inicioTrabajo, Instant.now()).toHours())*this.trabajador.getCosto_hora();
+		return (Duration.between(inicioTrabajo, Instant.now()).toHours())*this.trabajador.getCosto_hora();			//El trabajo no esta finalizado, entonces se calcula el costo al momento.
 		}
 	}
 	
 	@Override
 	public boolean finalizado() {
-		if (this.finTrabajo.isAfter(Instant.now())) {
-		return false;
+		if ((finTrabajo!=null) && (finTrabajo.isBefore(Instant.now()))) {
+		return true;
 		}else {
-			return true;
+			return false;
 		}
 	}
 	

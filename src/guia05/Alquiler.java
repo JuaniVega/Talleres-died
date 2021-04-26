@@ -2,14 +2,16 @@ package guia05;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.time.LocalDate;
 
 public class Alquiler implements Contratable {
 	private Herramienta herramienta;
 	private Instant inicio;
 	private Instant fin_acordado;
 	private Instant fin_real=null;
-
+	
+	public Alquiler() {
+		
+	}
 	
 	public Alquiler(Herramienta herramienta, Instant inicio, Instant fin_acordado) {
 		super();
@@ -20,7 +22,23 @@ public class Alquiler implements Contratable {
 	
 	
 	public boolean enMora() {
-		if(fin_real.isAfter(fin_acordado) || (fin_acordado.isBefore(Instant.now()))) {
+		if ( noDevuelve() || devuelveFueraDeFecha() ){
+				return true;
+			}else {
+				return false;
+			}
+	}
+	
+	public boolean noDevuelve() {
+		if ((fin_real==null) && (fin_acordado.isBefore(Instant.now()))) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean devuelveFueraDeFecha() {
+		if (fin_real.isAfter(fin_acordado)) {
 			return true;
 		}else {
 			return false;
@@ -32,7 +50,7 @@ public class Alquiler implements Contratable {
 	}
 
 
-	public void Devolucion(Instant fin_real) {
+	public void devolucion(Instant fin_real) {
 		this.fin_real = fin_real;
 	}
 	

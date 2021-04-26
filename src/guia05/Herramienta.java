@@ -15,18 +15,11 @@ public class Herramienta {
 		return nombre;
 	}
 
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-
 	public double getCosto_dia() {
 		return costo_dia;
 	}
 
-
-	public void setCosto_dia(double costo_dia) {
+	public void modificarCosto_dia(double costo_dia) {
 		this.costo_dia = costo_dia;
 	}
 	

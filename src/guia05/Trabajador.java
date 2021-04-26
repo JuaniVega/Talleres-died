@@ -4,13 +4,22 @@ import java.time.Instant;
 import java.util.ArrayList;
 
 public class Trabajador {
-	ArrayList<Trabajo> trabajosAsignados;
+	private ArrayList<Trabajo> trabajosAsignados;
 	private String nombre;
 	private Oficio oficio;
 	private String correo;
 	private int costo_hora;
+
+	public Trabajador(String nombre, Oficio oficio, String correo, int costo_hora) {
+		super();
+		this.nombre = nombre;
+		this.oficio = oficio;
+		this.correo = correo;
+		this.costo_hora = costo_hora;
+		this.trabajosAsignados=new ArrayList();
+	}
 	
-	
+
 	public int getCosto_hora() {
 		return costo_hora;
 	}
@@ -20,16 +29,6 @@ public class Trabajador {
 		this.costo_hora = costo_hora;
 	}
 
-
-	public Trabajador(String nombre, Oficio oficio, String correo, int costo_hora, int comision) {
-		super();
-		this.nombre = nombre;
-		this.oficio = oficio;
-		this.correo = correo;
-		this.costo_hora = costo_hora;
-		this.trabajosAsignados=new ArrayList();
-	}
-	
 	
 	public void agregarTareas(Trabajo trabajo) throws AgendaOcupadaException, OficioNoCoincideException {
 		if(oficiosIguales(this.oficio, trabajo.getServicio().oficio)) {
