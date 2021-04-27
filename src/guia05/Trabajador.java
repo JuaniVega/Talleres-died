@@ -1,6 +1,6 @@
 package guia05;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Trabajador {
@@ -44,7 +44,7 @@ public class Trabajador {
 		
 	}
 	
-	public boolean oficiosIguales(Oficio oficioTrabajador, Oficio oficioTrabajo) {
+	private boolean oficiosIguales(Oficio oficioTrabajador, Oficio oficioTrabajo) {
 		if(oficioTrabajador==oficioTrabajo) {
 			return true;
 		}else {
@@ -52,7 +52,7 @@ public class Trabajador {
 		}
 	}
 	
-	public boolean agendaLibre(Instant fechaInicio, ArrayList<Trabajo> listaTrabajos) {
+	private boolean agendaLibre(LocalDateTime fechaInicio, ArrayList<Trabajo> listaTrabajos) {
 		for(int i=0; i<listaTrabajos.size(); i++) {
 			if(fechaInicio==listaTrabajos.get(i).getInicioTrabajo()) {
 				return false;

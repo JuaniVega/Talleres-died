@@ -1,19 +1,16 @@
 package guia05;
 
 import java.time.Duration;
-import java.time.Instant;
+import java.time.LocalDate;
 
 public class Alquiler implements Contratable {
 	private Herramienta herramienta;
-	private Instant inicio;
-	private Instant fin_acordado;
-	private Instant fin_real=null;
+	private LocalDate inicio;
+	private LocalDate fin_acordado;
+	private LocalDate fin_real=null;
 	
-	public Alquiler() {
-		
-	}
 	
-	public Alquiler(Herramienta herramienta, Instant inicio, Instant fin_acordado) {
+	public Alquiler(Herramienta herramienta, LocalDate inicio, LocalDate fin_acordado) {
 		super();
 		this.herramienta = herramienta;
 		this.inicio = inicio;
@@ -30,7 +27,7 @@ public class Alquiler implements Contratable {
 	}
 	
 	public boolean noDevuelve() {
-		if ((fin_real==null) && (fin_acordado.isBefore(Instant.now()))) {
+		if ((fin_real==null) && (fin_acordado.isBefore(LocalDate.now()))) {
 			return true;
 		}else {
 			return false;
@@ -45,21 +42,21 @@ public class Alquiler implements Contratable {
 		}
 	}
 	
-	public Instant getFin_real() {
+	public LocalDate getFin_real() {
 		return fin_real;
 	}
 
 
-	public void devolucion(Instant fin_real) {
+	public void devolucion(LocalDate fin_real) {
 		this.fin_real = fin_real;
 	}
 	
 	@Override
 	public double precio() {
 		if(finalizado()) {
-			return Duration.between(inicio, fin_real).toDays()*herramienta.getCosto_dia();
+			return Duration.between(inicio.atStartOfDay(), fin_real.atStartOfDay()).toDays()*herramienta.getCosto_dia();			//Segun mi interpretacion de la consigna, el precio final del alquiler es desde el incio hasta el dia en que la herramienta fue devuelta. Sin importar que esta fecha sea despues de la acordada.
 		}else {
-			return Duration.between(inicio, fin_acordado).toDays()*herramienta.getCosto_dia();
+			return Duration.between(inicio.atStartOfDay(), fin_acordado.atStartOfDay()).toDays()*herramienta.getCosto_dia();		//Como la herramienta no fue devuelta, se calcula el precio hasta el dia acordado, ya que no hay multa por devolucion tardia.
 		}	
 	}
 	

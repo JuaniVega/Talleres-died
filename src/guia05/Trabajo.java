@@ -2,23 +2,25 @@ package guia05;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Trabajo implements Contratable{
-	private Instant inicioTrabajo;
-	private Instant finTrabajo;
+	private LocalDateTime inicioTrabajo;
+	private LocalDateTime finTrabajo;
 	private Trabajador trabajador;
 	private Servicio servicio;
 	
 	
-	public Trabajo(Instant inicioTrabajo, boolean urgente, Trabajador trabajador, Servicio servicio) {
+	public Trabajo(LocalDateTime inicioTrabajo, Trabajador trabajador, Servicio servicio) {
 		super();
 		this.inicioTrabajo=inicioTrabajo;
 		this.finTrabajo = null;					//Al crear un trabajo, este no tiene fecha de finalizacion.
 		this.trabajador = trabajador;
-		this.servicio = servicio;
+		this.servicio=servicio;
 	}
 	
-	public Instant getInicioTrabajo() {
+	public LocalDateTime getInicioTrabajo() {
 		return inicioTrabajo;
 	}
 
@@ -30,7 +32,7 @@ public class Trabajo implements Contratable{
 		return servicio;
 	}
 	
-	public void definirFinTrabajo(Instant finTrabajo) {
+	public void definirFinTrabajo(LocalDateTime finTrabajo) {
 		this.finTrabajo = finTrabajo;
 	}
 
@@ -50,7 +52,7 @@ public class Trabajo implements Contratable{
 	
 	@Override
 	public boolean finalizado() {
-		if ((finTrabajo!=null) && (finTrabajo.isBefore(Instant.now()))) {
+		if ((finTrabajo!=null) && (finTrabajo.isBefore(LocalDateTime.now()))) {
 		return true;
 		}else {
 			return false;
