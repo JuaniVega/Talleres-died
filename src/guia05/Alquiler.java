@@ -61,7 +61,7 @@ public class Alquiler implements Contratable {
 	}
 	
 	@Override
-	public boolean finalizado() {
+	public boolean finalizado() {		//Finalizado implica que la herramienta fue devuelta
 		if (this.fin_real==null) {
 			return false;
 			}else {

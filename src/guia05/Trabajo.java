@@ -1,8 +1,6 @@
 package guia05;
 
 import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Trabajo implements Contratable{
@@ -41,12 +39,10 @@ public class Trabajo implements Contratable{
 	
 	@Override
 	public double precio() {
-		double valor;
 		if (this.finalizado()) {
-			valor=((Duration.between(inicioTrabajo, finTrabajo).toHours())*this.trabajador.getCosto_hora());		//Calcula el costo desde el inicio hasta el fin del trabajo.
-			return valor;
+			return ((Duration.between(inicioTrabajo, finTrabajo).toHours())*this.trabajador.getCosto_hora());		//Calcula el costo desde el inicio hasta el fin del trabajo.
 		}else {
-		return (Duration.between(inicioTrabajo, Instant.now()).toHours())*this.trabajador.getCosto_hora();			//El trabajo no esta finalizado, entonces se calcula el costo al momento.
+		return (Duration.between(inicioTrabajo, LocalDateTime.now()).toHours())*this.trabajador.getCosto_hora();			//El trabajo no esta finalizado, entonces se calcula el costo al momento.
 		}
 	}
 	
